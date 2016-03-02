@@ -1,0 +1,15 @@
+source "https://supermarket.chef.io"
+
+cookbook "mercury-crawler", path: "mercury-crawler"
+cookbook "mercury-frontend", path: "mercury-frontend"
+
+def opsworks_cookbooks (name)
+  cookbook name, { :github => "aws/opsworks-cookbooks", :tag => 'release-chef-11.10', :rel => name }
+end
+
+group :opsworks do
+  opsworks_cookbooks 'deploy'
+  opsworks_cookbooks 'scm_helper'
+  opsworks_cookbooks 'opsworks_initial_setup'
+end
+
